@@ -25,7 +25,7 @@ const data: User[] = [
 ];
 
 @Injectable()
-export class AppService {
+export class UserService {
   getUser(id: number): User {
     return data.find((user) => user.id === id);
   }
