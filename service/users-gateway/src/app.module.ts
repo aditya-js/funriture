@@ -9,6 +9,9 @@ import { MongooseModule } from '@nestjs/mongoose';
     UserModule,
     MongooseModule.forRoot(
       'mongodb+srv://adimvc:funriture@cluster0.ty7cuyt.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0',
+      {
+        dbName: 'funriture',
+      },
     ),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,

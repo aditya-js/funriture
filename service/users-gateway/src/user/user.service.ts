@@ -1,32 +1,17 @@
 import { Injectable } from '@nestjs/common';
-import { Directive, Field, ID, ObjectType } from '@nestjs/graphql';
 
-@ObjectType()
-export class User {
-  @Field()
-  id: number;
-  @Field()
-  name: string;
-}
-
-const data: User[] = [
-  {
-    id: 1,
-    name: 'John',
-  },
-  {
-    id: 2,
-    name: 'Jane',
-  },
-  {
-    id: 3,
-    name: 'Jim',
-  },
-];
+import { InjectModel } from '@nestjs/mongoose';
+import mongoose from 'mongoose';
+import { User as UserCollection } from 'src/db/schema/user-schema';
 
 @Injectable()
 export class UserService {
-  getUser(id: number): User {
-    return data.find((user) => user.id === id);
+  constructor(
+    @InjectModel(UserCollection.name)
+    private userModel: mongoose.Model<UserCollection>,
+  ) {}
+
+  async getAllUsers(): Promise<UserCollection[]> {
+    return await this.userModel.find();
   }
 }
