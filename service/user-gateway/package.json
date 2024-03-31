@@ -1,0 +1,29 @@
+{
+  "name": "user-gateway",
+  "version": "1.0.0",
+  "license": "MIT",
+  "rootDir": "src",
+  "scripts": {
+    "start": "yarn ts-node src/index.ts",
+    "dev": "nodemon src/index.ts"
+  },
+  "dependencies": {
+    "koa": "^2.15.2",
+    "koa-bodyparser": "^4.4.1",
+    "koa-json": "^2.0.2",
+    "koa-logger": "^3.2.1",
+    "koa-router": "^12.0.1",
+    "mongoose": "^8.2.4"
+  },
+  "devDependencies": {
+    "@types/koa": "^2.15.0",
+    "@types/node": "^20.12.2",
+    "eslint": "^8.57.0",
+    "nodemon": "^3.1.0",
+    "prettier": "^3.2.5",
+    "ts-loader": "^9.5.1",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.4.3"
+  }
+}

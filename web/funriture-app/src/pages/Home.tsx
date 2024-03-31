@@ -1,9 +1,9 @@
-import { Banner } from "baseui/banner";
+import { Space } from "antd";
 
 export default function Home() {
   return (
-    <Banner title="Home Page">
+    <Space title="Home Page">
       You have landed on Home Page
-    </Banner>
+    </Space>
   );
 }

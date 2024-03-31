@@ -1,4 +1,4 @@
-import { Button, SHAPE } from "baseui/button";
+import { Button } from "antd";
 import { theme } from "../../store";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -10,9 +10,9 @@ export default function Header() {
 
   return (
     <div style={{ float: "right" }}>
-      <Button shape={SHAPE.circle} onClick={() => dispatch(changeTheme())}>
+      <Button shape="circle" onClick={() => dispatch(changeTheme())}>
         {theme === 0 ? "light" : "dark"}
-      </Button>
+      </Button> 
     </div>
   );
 }

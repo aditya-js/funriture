@@ -3,8 +3,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./pages/Home";
 import Counter from "./pages/counter";
 import { useSelector } from "react-redux";
-import { DarkTheme, LightTheme, BaseProvider } from "baseui";
 import Header from "./components/header";
+import {ConfigProvider} from 'antd'
 
 function App() {
   const theme = useSelector((state) => state.theme);
@@ -21,10 +21,18 @@ function App() {
   ]);
   return (
     <>
-      <BaseProvider theme={theme === 0 ? DarkTheme : LightTheme}>
+      <ConfigProvider theme={{
+      algorithm: theme.compactAlgorithm,
+      
+        "token": {
+          "colorPrimary": "#000000",
+          "colorInfo": "#000000"
+        }
+      
+    }}>
         <Header />
         <RouterProvider router={router} />
-      </BaseProvider>
+      </ConfigProvider>
     </>
   );
 }

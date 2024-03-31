@@ -1,4 +1,4 @@
-import { Button } from "baseui/button";
+import { Button } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { counter } from "../store";
 
@@ -8,7 +8,7 @@ export default function Counter() {
   const count = useSelector((state: any) => state.counter);
   const dispatch = useDispatch();
   return (
-    <Button
+    <Button 
       onClick={() => {
         dispatch(increment());
       }}
