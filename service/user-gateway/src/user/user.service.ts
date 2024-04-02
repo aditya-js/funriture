@@ -12,3 +12,9 @@ export const create = async (user: UserDto) => {
 
   return `User create successfully, UserId: ${data._id?.toString()}`;
 };
+
+export const getUser = async (id: string) => {
+  const user = await UserSchema.findById(id);
+
+  return user;
+};
