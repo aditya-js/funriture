@@ -1,18 +1,24 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./pages/Home";
 import { useSelector } from "react-redux";
-import Header from "./components/header";
+import AppHeader from "./components/header";
 import { ConfigProvider, Layout, Space } from "antd";
+import Login from "./pages/login";
 
 function App() {
   const theme = useSelector((state) => state.theme);
-  console.log("theme", theme);
+
   const router = createBrowserRouter([
     {
       path: "/",
       element: <Home />,
     },
+    {
+      path: "/login",
+      element: <Login />,
+    },
   ]);
+
   return (
     <>
       <ConfigProvider
@@ -31,8 +37,8 @@ function App() {
       >
         {/* <Space direction="vertical" size="middle"> */}
         <Layout>
-          <Header />
-          <Layout.Content style={{ padding: "20px 48px", minHeight: "500px" }}>
+          <AppHeader />
+          <Layout.Content>
             <RouterProvider router={router} />
           </Layout.Content>
           <Layout.Footer>Footer</Layout.Footer>

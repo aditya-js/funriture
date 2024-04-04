@@ -18,3 +18,14 @@ export const getUser = async (id: string) => {
 
   return user;
 };
+
+export const getUserByEmail = async (email: string) => {
+  const user = await UserSchema.findOne({ email: email });
+  console.log(user);
+  if (user) return user;
+  else {
+    return {
+      msg: 'User Not Found',
+    };
+  }
+};

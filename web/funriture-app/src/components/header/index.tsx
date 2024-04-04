@@ -29,7 +29,7 @@ export default function AppHeader() {
             target="_self"
             style={{ display: "flex", alignItems: "center" }}
           >
-            <img src="/logo.png" alt="logo" height="70px" />
+            <img src="/logo.png" alt="logo" height="50px" />
             <span style={{ fontSize: "26px", fontWeight: 700 }}>Funriture</span>
           </a>
           <Input.Search
