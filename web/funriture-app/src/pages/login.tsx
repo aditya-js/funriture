@@ -4,19 +4,43 @@ import { useState } from "react";
 const Login = () => {
   const [email, setEmail] = useState<string>();
   const [password, setPassword] = useState<string>();
-  const [validate, setValid] = useState();
+  const [validate, setValid] = useState({ email: true, password: true });
+  const [user, setUser] = useState({});
 
   const validation = () => {
-    if (!email || !password) {
-      setValid(true);
+    if (email) {
+      setValid({ email: false, password: true });
+      return false;
+    }
+    if (password) {
+      setValid({ email: false, password: true });
       return false;
     }
     return true;
   };
 
-  const handleClick = () => {
-    if (!validation()) return;
-    alert(`email: ${email}, password: ${password}`);
+  const handleClick = async () => {
+    //if (!validation()) return;
+    const response = await fetch(
+      "http://localhost:8081/api/user/getUserByEmail",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email }),
+      }
+    );
+    const result = await response.json();
+    setUser(result);
+
+    // .then((result) => {
+    //     return result.json();
+    //   })
+    //   .then((response) => {
+    //     setUser(response);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
   };
 
   return (
@@ -37,6 +61,7 @@ const Login = () => {
             value={email}
           />
           <Input.Password
+            status={validate ? "error" : ""}
             placeholder="input password"
             value={password}
             onChange={(e) => {
@@ -47,6 +72,15 @@ const Login = () => {
             Login
           </Button>
         </Space>
+        {user && Object.keys(user).length > 0 && (
+          <Space direction="vertical">
+            <div>
+              <span>name {user.name}</span>
+              <br></br>
+              <span>Dob: {new Date(user.dob).toLocaleDateString()}</span>
+            </div>
+          </Space>
+        )}
       </div>
     </Flex>
   );
