@@ -14,6 +14,7 @@ export const User = new Schema({
   email: String,
   contact: Number,
   cart: [{ productUuid: String, variant: String, quantity: Number }],
+  password: String,
 });
 
 export const UserSchema = model('users', User);

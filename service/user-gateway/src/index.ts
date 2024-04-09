@@ -15,6 +15,9 @@ app.use(cors());
 
 // Routes
 app.use(router.routes()).use(router.allowedMethods());
+app.use(async (ctx, next) => {
+  ctx.type = 'application/json';
+});
 
 app.listen(8081, () => {
   console.log('app started');
