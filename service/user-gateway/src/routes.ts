@@ -5,6 +5,7 @@ import {
   getUserById,
   getUserByEmailId,
   userLogin,
+  authrizeToken,
 } from './user/user.controller';
 
 const router = new Router({
@@ -21,7 +22,7 @@ router.get('/health', async (ctx, next) => {
 
 router.get('/user/getUsers', getAllUsers);
 router.post('/user/create', createUser);
-router.get('/user/getUser/:id', getUserById);
+router.get('/user/getUser/:id', authrizeToken, getUserById);
 router.post('/user/getUserByEmail', getUserByEmailId);
 router.post('/user/login', userLogin);
 
