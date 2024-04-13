@@ -10,4 +10,11 @@ app.use(
   })
 );
 
+app.use(
+  "/api/product",
+  createProxyMiddleware({
+    target: "http://localhost:8081/api/product",
+  })
+);
+
 app.listen(8001);
