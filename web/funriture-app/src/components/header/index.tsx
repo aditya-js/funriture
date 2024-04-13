@@ -1,21 +1,43 @@
-import { Button, Menu } from "antd";
-import { theme } from "../../store";
 import { useSelector, useDispatch } from "react-redux";
-import { Breadcrumb, Layout, Input, Space, Avatar, Flex, Badge } from "antd";
+import { Layout, Input, Avatar, Flex, Badge } from "antd";
 import { UserOutlined, ShoppingCartOutlined } from "@ant-design/icons";
+import { Dropdown } from "antd";
+import { Link } from "react-router-dom";
+import { useState } from "react";
 
 const { Header } = Layout;
 
-const { changeTheme } = theme.actions;
+function userOptions(isLoggedIn:boolean) {
+  return isLoggedIn
+    ? [
+        {
+          key: "1",
+          label: <Link to="/profile">My Profile</Link>,
+        },
+        {
+          key: "2",
+          label: <Link to="/">Logout</Link>,
+        },
+      ]
+    : [
+        {
+          key: "1",
+          label: <Link to="/login">Sign In</Link>,
+        },
+      ];
+}
+
 
 export default function AppHeader() {
-  const dispatch = useDispatch();
-  const theme = useSelector((state) => state.theme);
+  //const dispatch = useDispatch();
+  const user = useSelector((state)=> state.activeUser.user)
+  const [show, setShow] = useState();
+  const isLoggedIn = Boolean(localStorage.getItem("id"));
 
   return (
     <Header
       style={{
-        position: "sticky",
+        position: "inherit",
         top: 0,
         backgroundColor: "#FFFFFF",
         borderBottom: "1px solid #00000029",
@@ -39,7 +61,12 @@ export default function AppHeader() {
           />
         </Flex>
         <Flex align="center" gap="30px">
-          <Avatar icon={<UserOutlined />} />
+          <Dropdown
+            menu={{ items: userOptions(isLoggedIn) }}
+            placement="bottom"
+          >
+            <Avatar>{isLoggedIn ? user?.name?.substring(0,2) : <UserOutlined />}</Avatar>
+          </Dropdown>
           <Badge count={1}>
             <ShoppingCartOutlined style={{ fontSize: "26px" }} />
           </Badge>

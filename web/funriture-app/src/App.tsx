@@ -37,13 +37,15 @@ function App() {
       >
         {/* <Space direction="vertical" size="middle"> */}
         <Layout>
-          <AppHeader />
+        <RouterProvider router={router} />
+          {/* <AppHeader />
           <Layout.Content>
-            <RouterProvider router={router} />
+            
           </Layout.Content>
-          <Layout.Footer>Footer</Layout.Footer>
-        </Layout>
-        {/* </Space> */}
+           <Layout.Footer>Footer</Layout.Footer>
+         
+         </Space> */}
+         </Layout>
       </ConfigProvider>
     </>
   );
