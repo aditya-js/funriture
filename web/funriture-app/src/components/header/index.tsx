@@ -3,11 +3,14 @@ import { Layout, Input, Avatar, Flex, Badge } from "antd";
 import { UserOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 import { Dropdown } from "antd";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getUser } from "../../queries/users";
+import { UseDispatch } from "react-redux";
+import { userReducer } from "../../store";
 
 const { Header } = Layout;
 
-function userOptions(isLoggedIn:boolean) {
+function userOptions(isLoggedIn: boolean) {
   return isLoggedIn
     ? [
         {
@@ -27,12 +30,21 @@ function userOptions(isLoggedIn:boolean) {
       ];
 }
 
-
 export default function AppHeader() {
   //const dispatch = useDispatch();
-  const user = useSelector((state)=> state.activeUser.user)
+  const user = useSelector((state) => state.activeUser.user);
   const [show, setShow] = useState();
   const isLoggedIn = Boolean(localStorage.getItem("id"));
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    async function getData() {
+      const user = await getUser(localStorage.getItem("id") || "");
+      console.log("Hiii", user);
+      dispatch(userReducer.actions.setActiveUser(user));
+    }
+    getData();
+  }, []);
 
   return (
     <Header
@@ -65,7 +77,9 @@ export default function AppHeader() {
             menu={{ items: userOptions(isLoggedIn) }}
             placement="bottom"
           >
-            <Avatar>{isLoggedIn ? user?.name?.substring(0,2) : <UserOutlined />}</Avatar>
+            <Avatar>
+              {isLoggedIn ? user?.name?.substring(0, 1) : <UserOutlined />}
+            </Avatar>
           </Dropdown>
           <Badge count={1}>
             <ShoppingCartOutlined style={{ fontSize: "26px" }} />

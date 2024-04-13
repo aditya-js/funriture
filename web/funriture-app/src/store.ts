@@ -15,12 +15,12 @@ import { createSlice, configureStore } from "@reduxjs/toolkit";
 //     changeTheme: (state) => state === 0 ? 1 : 0,
 //   },
 // });
-export const activeUser = createSlice({
+export const userReducer = createSlice({
   name: "user",
-  initialState: {user:{}},
+  initialState: { user: {} },
   reducers: {
     // changeTheme: (state) => state === 0 ? 1 : 0,
-    setActiveUser: (state, {payload}) => {
+    setActiveUser: (state, { payload }) => {
       state.user = payload;
     },
   },
@@ -28,6 +28,6 @@ export const activeUser = createSlice({
 
 export const store = configureStore({
   reducer: {
-    activeUser: activeUser.reducer,
+    activeUser: userReducer.reducer,
   },
 });

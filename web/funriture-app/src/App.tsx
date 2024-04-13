@@ -4,6 +4,9 @@ import { useSelector } from "react-redux";
 import AppHeader from "./components/header";
 import { ConfigProvider, Layout, Space } from "antd";
 import Login from "./pages/login";
+import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
 
 function App() {
   const theme = useSelector((state) => state.theme);
@@ -35,17 +38,19 @@ function App() {
           },
         }}
       >
-        {/* <Space direction="vertical" size="middle"> */}
-        <Layout>
-        <RouterProvider router={router} />
-          {/* <AppHeader />
+        <QueryClientProvider client={queryClient}>
+          {/* <Space direction="vertical" size="middle"> */}
+          <Layout>
+            <RouterProvider router={router} />
+            {/* <AppHeader />
           <Layout.Content>
             
           </Layout.Content>
            <Layout.Footer>Footer</Layout.Footer>
          
          </Space> */}
-         </Layout>
+          </Layout>
+        </QueryClientProvider>
       </ConfigProvider>
     </>
   );
