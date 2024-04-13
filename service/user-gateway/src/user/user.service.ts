@@ -15,7 +15,7 @@ export const create = async (user: UserDto) => {
   dbUser.password = hash;
   const data = await UserSchema.create(dbUser);
 
-  return `User created successfully, UserId: ${data._id?.toString()}`;
+  return data;
 };
 
 export const getUser = async (id: string) => {
@@ -28,15 +28,15 @@ export const getUserByEmail = async (
   email: string,
   isPass: boolean = false,
 ) => {
-  if (isPass) return await UserSchema.findOne({ email: email });
-  else
-    return await UserSchema.findOne({ email: email }).select({ password: 0 });
+  if (isPass)
+    return await UserSchema.findOne({ email: email }).select('+password');
+  else return await UserSchema.findOne({ email: email });
 };
 
 export const login = async (email: string, plainPass: string) => {
   const user = await getUserByEmail(email, true);
-  const { password, ...userInfo } = user['_doc'];
   if (user) {
+    const { password, ...userInfo } = user['_doc'];
     const isValid = await bcrypt.compare(plainPass, password);
     if (isValid) return userInfo;
     else throw new Error('password not correct');
