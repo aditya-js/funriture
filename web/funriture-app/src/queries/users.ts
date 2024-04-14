@@ -16,7 +16,7 @@ export async function getUser(id: string) {
   const token = localStorage.getItem("accessToken");
   const response = await fetch(`${BASE_URL}/api/user/getUser/${id}`, {
     headers: {
-      Authorization: `${token}`,
+      Authorization: `Bearer ${token}`,
     },
   });
   console.log(response);

@@ -13,7 +13,7 @@ app.use(
 app.use(
   "/api/product",
   createProxyMiddleware({
-    target: "http://localhost:8081/api/product",
+    target: "http://localhost:8082/api/product",
   })
 );
 

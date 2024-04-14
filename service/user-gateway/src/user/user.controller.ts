@@ -70,12 +70,13 @@ export const userLogin = async (ctx, next) => {
 
 export const authrizeToken = async (ctx, next) => {
   try {
-    const token = ctx.header['authorization'];
-    if (!token) {
+    const authToken = ctx.header['authorization'];
+    if (!authToken) {
       ctx.status = 401;
       ctx.body = { error: 'No auth token provided' };
       return;
     }
+    const token = authToken.split(' ')[1];
     const isValid = jwt.verify(token, 'funriture');
     if (isValid) {
       await next();

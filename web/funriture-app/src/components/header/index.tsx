@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { getUser } from "../../queries/users";
 import { UseDispatch } from "react-redux";
 import { userReducer } from "../../store";
+import { useQuery } from "@tanstack/react-query";
 
 const { Header } = Layout;
 
@@ -32,19 +33,21 @@ function userOptions(isLoggedIn: boolean) {
 
 export default function AppHeader() {
   //const dispatch = useDispatch();
-  const user = useSelector((state) => state.activeUser.user);
+  //const user = useSelector((state) => state.activeUser.user);
   const [show, setShow] = useState();
   const isLoggedIn = Boolean(localStorage.getItem("id"));
   const dispatch = useDispatch();
 
+  const { data: user } = useQuery({
+    queryKey: ["getUser"],
+    queryFn: () => getUser(localStorage.getItem("id") || ""),
+    refetchOnMount: false,
+  });
+  console.log(user);
+
   useEffect(() => {
-    async function getData() {
-      const user = await getUser(localStorage.getItem("id") || "");
-      console.log("Hiii", user);
-      dispatch(userReducer.actions.setActiveUser(user));
-    }
-    getData();
-  }, []);
+    dispatch(userReducer.actions.setActiveUser(user));
+  }, [user?._id]);
 
   return (
     <Header
@@ -58,14 +61,10 @@ export default function AppHeader() {
     >
       <Flex justify="space-between">
         <Flex align="center" gap="15px">
-          <a
-            href="http://localhost:5173"
-            target="_self"
-            style={{ display: "flex", alignItems: "center" }}
-          >
+          <Link to="/" style={{ display: "flex", alignItems: "center" }}>
             <img src="/logo.png" alt="logo" height="50px" />
             <span style={{ fontSize: "26px", fontWeight: 700 }}>Funriture</span>
-          </a>
+          </Link>
           <Input.Search
             size="large"
             placeholder="What are you looking for?"
