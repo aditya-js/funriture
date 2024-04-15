@@ -1,14 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import AppHeader from "../components/header";
 import { Flex, Card } from "antd";
 import { getproduct } from "../queries/products";
 
 const { Meta } = Card;
 function Product() {
+  const [produc, setProduc] = useState();
   useEffect(() => {
     async function getpro() {
       const prod = await getproduct();
     }
+    setProduc();
+    getpro();
   });
   return (
     <>

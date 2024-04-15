@@ -81,7 +81,7 @@ export default function AppHeader() {
   useEffect(() => {
     async function getCat() {
       const cates = await getCategories();
-      const items = [
+      const item = [
         {
           label: "Categories",
           key: "Categories",
@@ -95,7 +95,7 @@ export default function AppHeader() {
           }),
         },
       ];
-      setItems(items);
+      setItems(item);
     }
     getCat();
     dispatch(userReducer.actions.setActiveUser(user));
