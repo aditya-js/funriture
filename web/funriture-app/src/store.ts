@@ -23,6 +23,9 @@ export const userReducer = createSlice({
     setActiveUser: (state, { payload }) => {
       state.user = payload;
     },
+    reset: (state) => {
+      state.user=  {};
+    },
   },
 });
 

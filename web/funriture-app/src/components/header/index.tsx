@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { getUser } from "../../queries/users";
 import { UseDispatch } from "react-redux";
 import { userReducer } from "../../store";
+import Logout from "../auth/logout";
 
 const { Header } = Layout;
 
@@ -19,7 +20,7 @@ function userOptions(isLoggedIn: boolean) {
         },
         {
           key: "2",
-          label: <Link to="/">Logout</Link>,
+          label: <Logout />,
         },
       ]
     : [
@@ -45,6 +46,8 @@ export default function AppHeader() {
     }
     getData();
   }, []);
+
+  const styles = isLoggedIn && {backgroundColor:'#000'}
 
   return (
     <Header
@@ -77,7 +80,7 @@ export default function AppHeader() {
             menu={{ items: userOptions(isLoggedIn) }}
             placement="bottom"
           >
-            <Avatar>
+            <Avatar style={styles}>
               {isLoggedIn ? user?.name?.substring(0, 1) : <UserOutlined />}
             </Avatar>
           </Dropdown>

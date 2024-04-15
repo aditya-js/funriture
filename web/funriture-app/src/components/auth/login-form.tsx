@@ -59,7 +59,7 @@ function Loginform() {
         queryFn: () => login(email, password),
       });
 
-      if (user) {
+      if (user && !user.error) {
         localStorage.setItem("id", user?.user?._id);
         localStorage.setItem("accessToken", user?.accessToken);
         dispatch(userReducer.actions.setActiveUser(user?.user));
