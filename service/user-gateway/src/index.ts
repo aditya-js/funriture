@@ -3,6 +3,7 @@ import * as logger from 'koa-logger';
 import * as json from 'koa-json';
 import * as bodyParser from 'koa-bodyparser';
 import * as cors from '@koa/cors';
+import * as dotenv from 'dotenv';
 import router from './routes';
 
 const app = new Koa();
@@ -19,6 +20,8 @@ app.use(async (ctx, next) => {
   ctx.type = 'application/json';
 });
 
-app.listen(8081, () => {
+dotenv.config();
+
+app.listen(process.env.PORT, () => {
   console.log('app started');
 });

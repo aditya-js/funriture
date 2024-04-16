@@ -9,10 +9,11 @@ function Product() {
   useEffect(() => {
     async function getpro() {
       const prod = await getproduct();
+      setProduc(prod);
     }
-    setProduc();
+
     getpro();
-  });
+  }, []);
   return (
     <>
       <AppHeader />

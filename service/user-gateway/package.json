@@ -4,12 +4,13 @@
   "license": "MIT",
   "rootDir": "src",
   "scripts": {
-    "start": "yarn ts-node src/index.ts",
+    "start": "ts-node src/index.ts",
     "dev": "nodemon src/index.ts"
   },
   "dependencies": {
     "@koa/cors": "^5.0.0",
     "bcrypt": "^5.1.1",
+    "dotenv": "^16.4.5",
     "jsonwebtoken": "^9.0.2",
     "koa": "^2.15.2",
     "koa-bodyparser": "^4.4.1",
