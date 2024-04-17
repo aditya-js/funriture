@@ -1,16 +1,26 @@
 import { useSelector, useDispatch } from "react-redux";
 import { Layout, Input, Avatar, Flex, Badge } from "antd";
 import { UserOutlined, ShoppingCartOutlined } from "@ant-design/icons";
-import { Dropdown } from "antd";
-import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { Dropdown, Menu } from "antd";
+import { Link, Navigate } from "react-router-dom";
+import { useEffect, useMemo, useState } from "react";
 import { getUser } from "../../queries/users";
 import { UseDispatch } from "react-redux";
 import { userReducer } from "../../store";
 import Logout from "../auth/logout";
 import { useQuery } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
+import type { MenuProps } from "antd";
+import { getCategories } from "../../queries/products";
 
 const { Header } = Layout;
+// const items: MenuProps["items"] = [
+//   {
+//     label: "Categories",
+//     key: "Categories",
+//     children: [],
+//   },
+// ];
 
 function userOptions(isLoggedIn: boolean) {
   return isLoggedIn
@@ -35,23 +45,66 @@ function userOptions(isLoggedIn: boolean) {
 export default function AppHeader() {
   //const dispatch = useDispatch();
   //const user = useSelector((state) => state.activeUser.user);
-  const [show, setShow] = useState();
+  const [items, setItems] = useState();
   const isLoggedIn = Boolean(localStorage.getItem("id"));
   const dispatch = useDispatch();
+  // const navigate = useNavigate();
 
   const { data: user } = useQuery({
     queryKey: ["getUser"],
     queryFn: () => getUser(localStorage.getItem("id") || ""),
     refetchOnMount: false,
   });
-  console.log(user);
+
+  // const { data: cates } = useQuery({
+  //   queryKey: ["getCategories"],
+  //   queryFn: () => getCategories(),
+  //   refetchOnMount: false,
+  // });
+
+  // const items = useMemo(() => {
+  //   const item = [
+  //     {
+  //       label: "Categories",
+  //       key: "Categories",
+  //       children: (cates || []).map((item) => {
+  //         return {
+  //           label: item.name,
+  //           key: item._id,
+  //         };
+  //       }),
+  //     },
+  //   ];
+  //   return item;
+  // }, [cates]);
 
   useEffect(() => {
+    async function getCat() {
+      const cates = await getCategories();
+      const item = [
+        {
+          label: "Categories",
+          key: "Categories",
+          children: cates.map((item) => {
+            return {
+              label: (
+                <Link to={`/product?categoryId=${item._id}`}>{item.name}</Link>
+              ),
+              key: item._id,
+            };
+          }),
+        },
+      ];
+      setItems(item);
+    }
+    getCat();
     dispatch(userReducer.actions.setActiveUser(user));
   }, [user?._id]);
 
-  const styles = isLoggedIn && {backgroundColor:'#000'}
-
+  const styles = isLoggedIn && { backgroundColor: "#000" };
+  // const productClick = () => {
+  //   navigate("/product");
+  // };
   return (
     <Header
       style={{
@@ -74,6 +127,7 @@ export default function AppHeader() {
             style={{ width: 400 }}
           />
         </Flex>
+<<<<<<< HEAD
         <div className="category"> <p>Category </p>
           <div className="dropdown">
             <ul>
@@ -85,6 +139,16 @@ export default function AppHeader() {
             </ul>
           </div>
         </div>
+=======
+        <Flex style={{ width: "30%" }}>
+          <Menu
+            mode="horizontal"
+            items={items}
+            style={{ width: "30%" }}
+            // onClick={productClick}
+          />
+        </Flex>
+>>>>>>> e50fcd673b0ff7d51f63ed7b0401bda974a47138
         <Flex align="center" gap="30px">
           <Dropdown
             menu={{ items: userOptions(isLoggedIn) }}

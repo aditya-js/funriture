@@ -20,3 +20,35 @@ export const getCategories = async () => {
 
   return data;
 };
+
+export const getProducts = async (
+  page,
+  limit,
+  sortBy = "name",
+  searchString,
+  categoryId
+) => {
+  const aggregation = categoryId
+    ? { name: { $regex: ".*" + searchString + ".*" }, categoryId }
+    : { name: { $regex: ".*" + searchString + ".*" } };
+  const data = await ProductSchema.find(aggregation)
+    .skip(limit * (page - 1))
+    .limit(limit)
+    .sort({ [sortBy]: 1 });
+
+  const response = {
+    pageInfo: {
+      page: page,
+      limit: limit,
+    },
+    data: data,
+  };
+
+  return response;
+};
+
+export const getProductById = async (id: string) => {
+  const data = await ProductSchema.findById(id);
+
+  return data;
+};

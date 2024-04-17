@@ -5,6 +5,7 @@ import AppHeader from "./components/header";
 import { ConfigProvider, Layout, Space } from "antd";
 import Login from "./pages/login";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import Product from "./pages/product";
 
 const queryClient = new QueryClient();
 
@@ -19,6 +20,10 @@ function App() {
     {
       path: "/login",
       element: <Login />,
+    },
+    {
+      path: "/product",
+      element: <Product />,
     },
   ]);
 
