@@ -127,7 +127,6 @@ export default function AppHeader() {
             style={{ width: 400 }}
           />
         </Flex>
-<<<<<<< HEAD
         <div className="category"> <p>Category </p>
           <div className="dropdown">
             <ul>
@@ -139,7 +138,6 @@ export default function AppHeader() {
             </ul>
           </div>
         </div>
-=======
         <Flex style={{ width: "30%" }}>
           <Menu
             mode="horizontal"
@@ -148,7 +146,6 @@ export default function AppHeader() {
             // onClick={productClick}
           />
         </Flex>
->>>>>>> e50fcd673b0ff7d51f63ed7b0401bda974a47138
         <Flex align="center" gap="30px">
           <Dropdown
             menu={{ items: userOptions(isLoggedIn) }}
