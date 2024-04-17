@@ -74,6 +74,17 @@ export default function AppHeader() {
             style={{ width: 400 }}
           />
         </Flex>
+        <div className="category"> <p>Category </p>
+          <div className="dropdown">
+            <ul>
+              <li><a href="#">sourabh</a></li>
+              <li><a href="#">aditya</a></li>
+              <li><a href="#">gourav</a></li>
+              <li><a href="#">jasweer</a></li>
+              <li><a href="#">bhuvan</a></li>
+            </ul>
+          </div>
+        </div>
         <Flex align="center" gap="30px">
           <Dropdown
             menu={{ items: userOptions(isLoggedIn) }}
