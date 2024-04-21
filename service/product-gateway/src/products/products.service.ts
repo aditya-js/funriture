@@ -32,7 +32,6 @@ export const getProducts = async (
     ? { name: { $regex: ".*" + searchString + ".*" }, categoryId }
     : { name: { $regex: ".*" + searchString + ".*" } };
 
-  console.log(aggregation);
   const data = await ProductSchema.find(aggregation)
     .skip(limit * (page - 1))
     .limit(limit)
