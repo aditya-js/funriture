@@ -13,7 +13,7 @@ function Logout() {
         navigate('/login')
     }
   return (
-    <div onClick={onLogoutClick}>logout ki </div>
+    <div onClick={onLogoutClick}>logout</div>
   )
 }
 
