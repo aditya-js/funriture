@@ -53,8 +53,8 @@ export const getProducts = async (ctx, next) => {
     } = ctx.query;
 
     const data = await getProductService(
-      page,
-      limit,
+      Number(page),
+      Number(limit),
       sortBy,
       searchString,
       categoryId
