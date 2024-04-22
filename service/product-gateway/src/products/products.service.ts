@@ -29,13 +29,20 @@ export const getProducts = async (
   categoryId
 ) => {
   const aggregation = categoryId
-    ? { name: { $regex: ".*" + searchString + ".*" }, categoryId }
-    : { name: { $regex: ".*" + searchString + ".*" } };
+    ? {
+        name: { $regex: ".*" + searchString + ".*", $options: "i" },
+        categoryId,
+      }
+    : { name: { $regex: ".*" + searchString + ".*", $options: "i" } };
+
+  console.log(aggregation);
 
   const data = await ProductSchema.find(aggregation)
     .skip(limit * (page - 1))
     .limit(limit)
     .sort({ [sortBy]: 1 });
+
+  console.log(data);
 
   const total = await ProductSchema.countDocuments(aggregation);
 
