@@ -48,7 +48,7 @@ export default function AppHeader() {
   const [items, setItems] = useState();
   const isLoggedIn = Boolean(localStorage.getItem("id"));
   const dispatch = useDispatch();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const { data: user } = useQuery({
     queryKey: ["getUser"],
@@ -102,9 +102,15 @@ export default function AppHeader() {
   }, [user?._id]);
 
   const styles = isLoggedIn && { backgroundColor: "#000" };
-  // const productClick = () => {
-  //   navigate("/product");
-  // };
+  const onSearch = (text) => {
+    if (!text) {
+      // console.log("input is empty")
+      alert("input is empty");
+      return;
+    }
+
+    navigate(`/product?searchString=${text}`);
+  };
   return (
     <Header
       style={{
@@ -118,26 +124,20 @@ export default function AppHeader() {
       <Flex justify="space-between">
         <Flex align="center" gap="15px">
           <Link to="/" style={{ display: "flex", alignItems: "center" }}>
-            <img src="/logo.png" alt="logo" height="50px" />
+            <img
+              src="/logo.png"
+              alt="logo"
+              style={{ backgroundColor: "#f00", height: "50px" }}
+            />
             <span style={{ fontSize: "26px", fontWeight: 700 }}>Funriture</span>
           </Link>
           <Input.Search
+            onSearch={onSearch}
             size="large"
             placeholder="What are you looking for?"
             style={{ width: 400 }}
           />
         </Flex>
-        <div className="category"> <p>Category </p>
-          <div className="dropdown">
-            <ul>
-              <li><a href="#">sourabh</a></li>
-              <li><a href="#">aditya</a></li>
-              <li><a href="#">gourav</a></li>
-              <li><a href="#">jasweer</a></li>
-              <li><a href="#">bhuvan</a></li>
-            </ul>
-          </div>
-        </div>
         <Flex style={{ width: "30%" }}>
           <Menu
             mode="horizontal"

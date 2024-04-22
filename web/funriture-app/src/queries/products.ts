@@ -10,8 +10,16 @@ export async function getCategories() {
   return data;
 }
 
-export async function getproduct() {
-  const response = await fetch(`${BASE_URL}/api/product/getProducts`, {
+export async function getproduct({ categoryId, searchString }) {
+  let url = `${BASE_URL}/api/product/getProducts`;
+
+  if (categoryId) {
+    url = url + `?categoryId=${categoryId}`;
+  }
+  if (searchString) {
+    url = url + `?searchString=${searchString}`;
+  }
+  const response = await fetch(url, {
     headers: { "content-type": "application/json" },
   });
 
